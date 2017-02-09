@@ -27,6 +27,12 @@ class CategoriaController extends Controller
                 if ($request)
                 {
                     $query=trim($request->get('searchText'));
+                    $categorias=DB::table('categoria')->where('nombre','LIKE','%'.$query.'%')
+                            ->where('condicion','=','1')
+                            ->orderBy('idcategoria','desc')
+                            ->paginate(7);
+                    return view('almacen.categoria.index',["categorias"=>$categorias,"searchText"=>$query
+                            ]);
                 }
             
             
@@ -40,7 +46,7 @@ class CategoriaController extends Controller
 	 */
 	public function create()
 	{
-		
+		return view('almacen.categoria.create');
 	}
 
 	/**
@@ -48,9 +54,12 @@ class CategoriaController extends Controller
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(CategoriaFormRequest $request)
 	{
-		 
+		 $category = new Categoria($request->all());
+                 $category->save();
+//                 flash::success("Categoria creada correctamente");
+                 return Redirect::to('almacen/categoria');
 	}
 
 	/**
@@ -61,7 +70,7 @@ class CategoriaController extends Controller
 	 */
 	public function show($id)
 	{
-		//
+		return view('almacen.categoria.show',["categoria"=>Categoria::findOrFail($id)]);
 	}
 
 	/**
@@ -70,10 +79,10 @@ class CategoriaController extends Controller
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit()
+	public function edit($id)
 	{
             
-              
+              return view('almacen.categoria.edit',["categoria"=>Categoria::findOrFail($id)]);
 	}
 
 	/**
@@ -82,9 +91,13 @@ class CategoriaController extends Controller
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update()
+	public function update(CategoriaFormRequest $request,$id)
 	{
-            
+            $category = Categoria::find($id);
+            $category->fill($request->all());
+            $category->save();
+//                flash::warning("categoria editada correctamente");
+                return Redirect::to('almacen/categoria');
            
 	}
 
@@ -96,7 +109,11 @@ class CategoriaController extends Controller
 	 */
 	public function destroy($id)
 	{
-		
+		$categoria=Categoria::findOrFail($id);
+                $categoria->condicion='0';
+                $categoria->update();
+                 return Redirect::to('almacen/categoria');
+                
 	}
     
     
