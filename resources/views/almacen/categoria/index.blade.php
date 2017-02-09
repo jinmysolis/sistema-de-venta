@@ -34,13 +34,13 @@
                      
                           <td > 
                           <a href="{{route('almacen.categoria.edit',$categoria->idcategoria)}}" class="btn btn-danger glyphicon glyphicon-refresh"></a> 
-                          <a href="" onclick="return confirm('Seguro desea eliminar')"class="btn btn-warning glyphicon glyphicon-trash"></a>
+                          <a href=""data-target="#modal-delete-{{$categoria->idcategoria}}" data-toggle="modal" class="btn btn-warning glyphicon glyphicon-trash"></a>
                          </td>
                           
                      
                    </tr>
 
-               
+               @include('almacen.categoria.modal')
                @endforeach
               </table>
                
