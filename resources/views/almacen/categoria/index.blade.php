@@ -5,11 +5,14 @@
 @section('content')
 
 <div class="row">
-    <div   class="col-lg-8 col-md-8 col-sm-8 col-xs-12"
-           <h3>Listado de categorias <a href="categoria.create" class="btn btn-primary">Nuevo</a></h3>
-          @include('almacen.categoria.search')
+    <div   class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <p>
+        <h3 class="text-center">Listado de categorias</h3>
+        </p>
+            <a href="{{route('almacen.categoria.create')}}" class="btn btn-primary">Crear Nueva Categoria</a>
+             @include('almacen.categoria.search')
 </div>
-
+ 
     <div class="row">
     <div   class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
            <div class="table-responsive">
