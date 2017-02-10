@@ -96,7 +96,7 @@ class ArticuloController extends Controller
 	public function edit($id)
 	{
             $articulo=Articulo::findOrFail($id);
-            $categorias=DB::table('categorias')->where('condicion','=','1')->get();
+            $categorias=DB::table('categoria')->where('condicion','=','1')->get();
               return view('almacen.articulo.edit',["articulo"=>$articulo,"categorias"=>$categorias]);
 	}
 
@@ -113,6 +113,8 @@ class ArticuloController extends Controller
             $articulo->save();
 //                flash::warning("categoria editada correctamente");
                 return Redirect::to('almacen/articulo');
+                
+               
            
 	}
 
