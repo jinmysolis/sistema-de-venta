@@ -62,7 +62,7 @@ class IngresoController extends Controller
                 $ingreso->serie_comprobante=$request->get('serie_comprobante');
                 $ingreso->num_comprobante=$request->get('num_comprobante');
                 
-                $mytime->Carbon::now('America/Lima');
+                $mytime = Carbon::now('America/Lima');
                 $ingreso->fecha_hora=$mytime->toDateTimeString();
                 $ingreso->impuesto='18';
                 $ingreso->estado='A';
